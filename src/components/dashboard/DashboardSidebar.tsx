@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import type { LucideIcon } from "lucide-react";
-import { Upload, LayoutDashboard, FolderOpen, FileText, Settings, HelpCircle, Sparkles } from "lucide-react";
+import { Upload, FolderOpen, FileText, Settings, HelpCircle, Sparkles } from "lucide-react";
 
 import { NavLink } from "@/components/NavLink";
 import {
@@ -26,14 +26,13 @@ type Item = {
 
 const items: Item[] = [
   { title: "Upload", to: "/upload", icon: Upload },
-  { title: "Dashboard", to: "/dashboard", icon: LayoutDashboard },
   { title: "My Files", to: "/files", icon: FolderOpen },
   { title: "Reports", to: "/reports", icon: FileText },
 ];
 
 const secondaryItems: Item[] = [
-  { title: "Settings", to: "/dashboard", icon: Settings },
-  { title: "Help", to: "/dashboard", icon: HelpCircle },
+  { title: "Settings", to: "/files", icon: Settings },
+  { title: "Help", to: "/files", icon: HelpCircle },
 ];
 
 export function DashboardSidebar() {
