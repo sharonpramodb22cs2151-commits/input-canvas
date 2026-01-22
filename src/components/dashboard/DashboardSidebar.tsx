@@ -25,15 +25,15 @@ type Item = {
 };
 
 const items: Item[] = [
-  { title: "Upload", to: "/", icon: Upload },
-  { title: "Dashboard", to: "/", icon: LayoutDashboard },
-  { title: "My Files", to: "/", icon: FolderOpen },
-  { title: "Reports", to: "/", icon: FileText },
+  { title: "Upload", to: "/upload", icon: Upload },
+  { title: "Dashboard", to: "/dashboard", icon: LayoutDashboard },
+  { title: "My Files", to: "/files", icon: FolderOpen },
+  { title: "Reports", to: "/reports", icon: FileText },
 ];
 
 const secondaryItems: Item[] = [
-  { title: "Settings", to: "/", icon: Settings },
-  { title: "Help", to: "/", icon: HelpCircle },
+  { title: "Settings", to: "/dashboard", icon: Settings },
+  { title: "Help", to: "/dashboard", icon: HelpCircle },
 ];
 
 export function DashboardSidebar() {
