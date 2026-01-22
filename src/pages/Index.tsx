@@ -13,7 +13,7 @@ const Index = () => {
     }
 
     if (!loading && user) {
-      navigate('/dashboard', { replace: true });
+      navigate('/files', { replace: true });
     }
   }, [user, loading, navigate]);
 

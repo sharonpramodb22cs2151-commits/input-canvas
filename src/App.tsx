@@ -8,7 +8,6 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import UploadPage from "./pages/Upload";
-import DashboardPage from "./pages/Dashboard";
 import MyFilesPage from "./pages/MyFiles";
 import ReportsPage from "./pages/Reports";
 
@@ -25,7 +24,6 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/upload" element={<UploadPage />} />
-            <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/files" element={<MyFilesPage />} />
             <Route path="/reports" element={<ReportsPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
