@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
-import Dashboard from './Dashboard';
 
 const Index = () => {
   const { user, loading } = useAuth();
@@ -10,6 +9,11 @@ const Index = () => {
   useEffect(() => {
     if (!loading && !user) {
       navigate('/auth');
+      return;
+    }
+
+    if (!loading && user) {
+      navigate('/dashboard', { replace: true });
     }
   }, [user, loading, navigate]);
 
@@ -28,7 +32,7 @@ const Index = () => {
     return null;
   }
 
-  return <Dashboard />;
+  return null;
 };
 
 export default Index;
