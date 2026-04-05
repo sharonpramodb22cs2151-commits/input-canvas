@@ -1,6 +1,15 @@
 import { useState, useEffect, createContext, useContext, ReactNode } from 'react';
-import { User, Session } from '@supabase/supabase-js';
-import { supabase } from '@/integrations/supabase/client';
+
+// Mock types to match what the app expects
+export interface User {
+  id: string;
+  email?: string;
+}
+
+export interface Session {
+  access_token: string;
+  user: User;
+}
 
 interface AuthContextType {
   user: User | null;
@@ -19,48 +28,43 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Set up auth state listener FIRST
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-        setLoading(false);
+    // Check local storage for existing session
+    const stored = localStorage.getItem('mock_auth_session');
+    if (stored) {
+      try {
+        const parsedSession = JSON.parse(stored);
+        if (parsedSession && parsedSession.user) {
+          setSession(parsedSession);
+          setUser(parsedSession.user);
+        }
+      } catch (e) {
+        console.error("Failed to parse local session", e);
       }
-    );
-
-    // THEN check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
-
-    return () => subscription.unsubscribe();
+    }
+    setLoading(false);
   }, []);
 
-  const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    return { error };
+  const signIn = async (email: string, _password: string) => {
+    // In local dev mock, any email/password works
+    const mockUser = { id: 'user_' + Date.now().toString(), email };
+    const mockSession = { access_token: 'mock_token_' + Date.now().toString(), user: mockUser };
+    
+    setSession(mockSession);
+    setUser(mockUser);
+    localStorage.setItem('mock_auth_session', JSON.stringify(mockSession));
+    
+    return { error: null };
   };
 
   const signUp = async (email: string, password: string) => {
-    const redirectUrl = `${window.location.origin}/`;
-    
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: redirectUrl,
-      },
-    });
-    return { error };
+    // For local mock, signUp acts just like signIn (auto-login after creation)
+    return signIn(email, password);
   };
 
   const signOut = async () => {
-    await supabase.auth.signOut();
+    setSession(null);
+    setUser(null);
+    localStorage.removeItem('mock_auth_session');
   };
 
   return (
