@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import type { LucideIcon } from "lucide-react";
-import { Upload, FolderOpen, FileText, Settings, HelpCircle, Sparkles } from "lucide-react";
+import { Upload, FolderOpen, FileText, Sparkles } from "lucide-react";
 
 import { NavLink } from "@/components/NavLink";
 import {
@@ -30,10 +30,7 @@ const items: Item[] = [
   { title: "Reports", to: "/reports", icon: FileText },
 ];
 
-const secondaryItems: Item[] = [
-  { title: "Settings", to: "/files", icon: Settings },
-  { title: "Help", to: "/files", icon: HelpCircle },
-];
+
 
 export function DashboardSidebar() {
   const location = useLocation();
@@ -89,29 +86,7 @@ export function DashboardSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <SidebarSeparator />
 
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {secondaryItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild tooltip={item.title} isActive={isActive(item.to)}>
-                    <NavLink
-                      to={item.to}
-                      end
-                      className="gap-2"
-                      activeClassName="bg-sidebar-accent text-sidebar-accent-foreground"
-                    >
-                      <item.icon className="h-4 w-4" />
-                      {!collapsed && <span>{item.title}</span>}
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
       </SidebarContent>
     </Sidebar>
   );
